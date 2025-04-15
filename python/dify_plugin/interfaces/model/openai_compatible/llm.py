@@ -287,6 +287,21 @@ class OAICompatLargeLanguageModel(_CommonOaiApiCompat, LargeLanguageModel):
                     min=1,
                     max=int(credentials.get("max_tokens_to_sample", 4096)),
                 ),
+                ParameterRule(
+                    name=DefaultParameterName.RESPONSE_FORMAT.value,
+                    label=I18nObject(en_US="Response Format", zh_Hans="回复格式"),
+                    help=I18nObject(
+                        en_US="Specifying the format that the model must output.",
+                        zh_Hans="指定模型必须输出的格式。",
+                    ),
+                    type=ParameterType.STRING,
+                    options=["text", "json_object", "json_schema"],
+                    required=False,
+                ),
+                ParameterRule(
+                    name=DefaultParameterName.JSON_SCHEMA.value,
+                    use_template=DefaultParameterName.JSON_SCHEMA.value,
+                ),
             ],
             pricing=PriceConfig(
                 input=Decimal(credentials.get("input_price", 0)),
